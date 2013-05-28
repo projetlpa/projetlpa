@@ -1,7 +1,7 @@
 <?php
 
 
-class client{
+class Client{
     
     private $id;
     private $nom;
@@ -11,6 +11,7 @@ class client{
     private $ville;
     private $telephone1;
     private $telephone2;
+    private $idEtatClient;
     
     function getId(){
         
@@ -41,20 +42,49 @@ class client{
     function getTelephone2(){
         return $this->telephone2;
     }
-    
+    function getIdEtatClient()
+    {
+        return $this->idEtatClient;
+    }
     // FONCTION AJOUTER CLIENT
     
-    public static function ajoutClient($nom,$prenom,$adresse,$CP,$ville,$telephone1,$telephone2)
+    public static function ajoutClient($nom,$prenom,$adresse,$CP,$ville,$telephone1,$telephone2,$idEtatClient)
     {      
         try
         {
             $bd=new PDO('mysql:host=localhost;dbname=projetlpa','root','');
-            $requete="INSERT INTO client VALUES('','$nom','$prenom','$adresse','$CP','$ville','$telephone1','$telephone2')";
-            $bd->exec($requete);
+            $requete="INSERT INTO client VALUES('','$nom','$prenom','$adresse','$CP','$ville','$telephone1','$telephone2','$idEtatClient')";
+            $nbLignes=$bd->exec($requete);
+            if ($nbLignes===FALSE)
+            {
+                $resultat="erreur $requete";
+            }
+            else
+            {
+                $resultat="ok";
+            }
         }
         catch(PDOException $e)
         {
-            ;
+            $resultat=$e->getMessage();
+        }
+        return $resultat;
+    }
+    
+    public static function getEtatClient()
+    {
+     try
+        {
+            $bd=new PDO('mysql:host=localhost;dbname=projetlpa','root','');
+            $requete="SELECT id,libelle from etatclient";
+            $resultat=$bd->query($requete);
+            $lesEtats=$resultat->fetchAll();
+            return $lesEtats;
+        }
+        catch (PDOException $e)
+        {
+            echo $e;    
+                  
         }
     }
     

@@ -1,5 +1,5 @@
 <?php
-class animal{
+class Animal{
     
     private $id;
     private $idEspece;

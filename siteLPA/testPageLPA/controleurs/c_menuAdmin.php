@@ -5,6 +5,7 @@ include('vues/vue_menuAdmin.php');
 $action=$_REQUEST['action'];
 switch($action){  
     case 'nouveauClient':{
+        $lesEtats=Client::getEtatClient();
         include('vues/vue_formulaireNouveauClient.php');
         break;
     }
@@ -16,11 +17,22 @@ switch($action){
         $ville=$_POST['ville'];
         $telephone1=$_POST['telephone1'];
         $telephone2=$_POST['telephone2'];
-        $resultat=client::ajoutClient($nom, $prenom, $adresse, $CP, $ville, $telephone1, $telephone2);
+        $idEtatClient=$_POST['etatClient'];
+        $resultat=Client::ajoutClient($nom, $prenom, $adresse, $CP, $ville, $telephone1, $telephone2,$idEtatClient);
+        /*if ($resultat==TRUE)
+        {
+            echo ("Tout est inséré");            
+        }
+        else
+        {
+            echo ("erreur insertion ");
+        }*/
+        echo $resultat;
         break;
     }
     case 'nouvelAnimal':{
-        $lesTypesEspeces=  animal::getLesEspeces();
+        
+        $lesTypesEspeces=  Animal::getLesEspeces();
         include ('vues/vue_formulaireNouvelAnimal.php');
         break;
     }
@@ -29,6 +41,11 @@ switch($action){
         break;
     }    
     case 'ajouterUneEntree':{
+        break;
+    }
+    case 'nouvelleEntree':{
+        
+               
         break;
     }
 }
