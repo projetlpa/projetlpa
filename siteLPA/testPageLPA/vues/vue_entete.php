@@ -13,6 +13,7 @@
         <ul>
             <li><a href="index.php?uc=admin&action=vueMenuAdmin">ADMINISTRATION</a></li>
             <li><a href="index.php?uc=eco&action=vueMenuEco">ECONOMIQUE</a></li>
+            <li><a href="index.php?uc=recherche&action=recherche">RECHERCHE</a></li>
         </ul>
     </div>
     

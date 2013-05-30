@@ -17,7 +17,13 @@ switch($uc){
     case'eco':{
         
         include("controleurs/c_menuEco.php");break;
-    }       
+    }
+    
+    case 'recherche':{
+        include("controleurs/c_recherche.php");
+        break;
+    }
 }
+    
 include("vues/vue_piedDePage.php");
 ?>

@@ -88,10 +88,31 @@ class Client{
         }
     }
     
-    public function ajouterClientEntrée($sommeVersee,$sommeRendue,$modePaiement)
+    public static function getClient()
     {
-        return;
+        
+       try{
+            $bd=new PDO('mysql:host=localhost;dbname=projetlpa','root','');
+            $requete="SELECT * from client";
+            $resultat=$bd->query($requete);
+            $lesClients=$resultat->fetchAll();
+            return $lesClients;
+        }
+        catch (PDOException $e )
+        {
+            echo $e;    
+                  
+        }
+        
+        
     }
+    
+    
+    
+    
+    
+    
+    
 }
 
 ?>

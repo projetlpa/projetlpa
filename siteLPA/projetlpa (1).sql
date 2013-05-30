@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le : Mar 28 Mai 2013 à 09:43
+-- Généré le : Jeu 30 Mai 2013 à 12:55
 -- Version du serveur: 5.5.16
 -- Version de PHP: 5.3.8
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `animal` (
   `idRace` int(11) NOT NULL,
   `numMedaille` int(11) NOT NULL,
   `sexe` varchar(50) NOT NULL,
-  `etat` varchar(50) NOT NULL,
+  `etat` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dateSterilisation` date NOT NULL,
   `collier` int(11) NOT NULL,
   `numTatouage` int(11) NOT NULL,
@@ -61,6 +61,7 @@ CREATE TABLE IF NOT EXISTS `animal` (
   `mordeur` varchar(50) NOT NULL,
   `controleSanitaireLPA` varchar(50) NOT NULL,
   `idTypeEntree` int(11) NOT NULL,
+  `refClient` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idEspece` (`idEspece`),
   KEY `idRace` (`idRace`),
@@ -72,8 +73,17 @@ CREATE TABLE IF NOT EXISTS `animal` (
   KEY `refVaccin2` (`refVaccin2`),
   KEY `idTypeEntree` (`idTypeEntree`),
   KEY `idTailleQueue` (`idTailleQueue`),
-  KEY `collier` (`collier`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `collier` (`collier`),
+  KEY `refClient` (`refClient`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Contenu de la table `animal`
+--
+
+INSERT INTO `animal` (`id`, `idEspece`, `idRace`, `numMedaille`, `sexe`, `etat`, `dateSterilisation`, `collier`, `numTatouage`, `emplacementTatouage`, `numPuceElectronique`, `refVaccin1`, `dateVaccin1`, `rappelVaccin1`, `refVaccin2`, `dateVaccin2`, `rappelVaccin2`, `dateNaissance`, `ageApproximatif`, `moisApproximatif`, `nom`, `idTaille`, `idOreilles`, `idPoil`, `idTailleQueue`, `etatAnimal`, `couleurPrincipale`, `couleurSecondaire`, `signeParticulier`, `motif`, `observations`, `mordeur`, `controleSanitaireLPA`, `idTypeEntree`, `refClient`) VALUES
+(1, 3, 400, 2, 'male', 'stérilisé', '2013-05-14', 3, 7890, 'oreille gauche', 7848448, 6, '2013-05-21', '2013-05-14', 1, '2013-05-07', '2013-05-24', '2013-05-14', 1, 1, 'prosper', 2, 3, 4, 2, 'BON', 'BRUN', 'BLANC', 'RIEN', 'ABANDONNE', 'RIEN A SIGNALER', 'NON', 'OUI', 7, 4),
+(4, 1, 1, 789, 'male', 'oui', '2013-03-14', 1, 789, 'aucun', 784555, 1, '2013-03-16', '0000-00-00', 1, '2013-03-24', '2013-05-18', '2013-02-24', 0, 1, 'CROQUETTE', 1, 1, 1, 1, '1', 'BRUN', 'ROUGE', 'gentil ', 'boite', 'manque un oeil, mordu par un rodeur', 'oui', 'oui', 8, 6);
 
 -- --------------------------------------------------------
 
@@ -113,16 +123,19 @@ CREATE TABLE IF NOT EXISTS `client` (
   `ville` varchar(50) NOT NULL,
   `telephone1` varchar(50) NOT NULL,
   `telephone2` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+  `idEtatClient` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idEtatClient` (`idEtatClient`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `client`
 --
 
-INSERT INTO `client` (`id`, `nom`, `prenom`, `adresse`, `CP`, `ville`, `telephone1`, `telephone2`) VALUES
-(2, 'TALEB', 'SALIM', '40/10 AllÃ©e Pierre de Roubaix', '59100', 'Roubaix', '06 66 32 27 95', '03 20 73 37 71'),
-(3, 'CATTEAU', 'CYRIL', '40 RUE ARGENTEE', '59200', 'TOURCOING', '0600000000', '0600000000');
+INSERT INTO `client` (`id`, `nom`, `prenom`, `adresse`, `CP`, `ville`, `telephone1`, `telephone2`, `idEtatClient`) VALUES
+(4, 'CATTEAU', 'CYRIL', '40 RUE ARGENTEE', '59200', 'TOURCOING', '0600000000', '0600000000', 1),
+(5, '', '', '', '', '', '', '', 1),
+(6, 'CORNARD', 'Jordan', '73 Rue Bonne Nouvelle', '59200', 'Tourcoing', '060000000', '060000000', 1);
 
 -- --------------------------------------------------------
 
@@ -217,6 +230,26 @@ INSERT INTO `etat` (`id`, `libelle`) VALUES
 (5, 'BLESSE'),
 (6, 'MORT'),
 (7, 'A TOILETTER');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `etatclient`
+--
+
+CREATE TABLE IF NOT EXISTS `etatclient` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `etatclient`
+--
+
+INSERT INTO `etatclient` (`id`, `libelle`) VALUES
+(1, 'Entrée'),
+(2, 'Sortie');
 
 -- --------------------------------------------------------
 
@@ -1029,16 +1062,23 @@ INSERT INTO `vaccin` (`num`, `libelle`) VALUES
 -- Contraintes pour la table `animal`
 --
 ALTER TABLE `animal`
-  ADD CONSTRAINT `animal_ibfk_55` FOREIGN KEY (`idEspece`) REFERENCES `espece` (`id`),
-  ADD CONSTRAINT `animal_ibfk_56` FOREIGN KEY (`idRace`) REFERENCES `race` (`id`),
-  ADD CONSTRAINT `animal_ibfk_57` FOREIGN KEY (`collier`) REFERENCES `collier` (`refCollier`),
-  ADD CONSTRAINT `animal_ibfk_58` FOREIGN KEY (`refVaccin1`) REFERENCES `vaccin` (`num`),
-  ADD CONSTRAINT `animal_ibfk_59` FOREIGN KEY (`refVaccin2`) REFERENCES `vaccin` (`num`),
-  ADD CONSTRAINT `animal_ibfk_60` FOREIGN KEY (`idTaille`) REFERENCES `taille` (`id`),
-  ADD CONSTRAINT `animal_ibfk_61` FOREIGN KEY (`idOreilles`) REFERENCES `oreilles` (`id`),
-  ADD CONSTRAINT `animal_ibfk_62` FOREIGN KEY (`idPoil`) REFERENCES `poils` (`id`),
-  ADD CONSTRAINT `animal_ibfk_63` FOREIGN KEY (`idTailleQueue`) REFERENCES `queue` (`id`),
-  ADD CONSTRAINT `animal_ibfk_64` FOREIGN KEY (`idTypeEntree`) REFERENCES `typeentree` (`id`);
+  ADD CONSTRAINT `animal_ibfk_65` FOREIGN KEY (`idEspece`) REFERENCES `espece` (`id`),
+  ADD CONSTRAINT `animal_ibfk_66` FOREIGN KEY (`idRace`) REFERENCES `race` (`id`),
+  ADD CONSTRAINT `animal_ibfk_67` FOREIGN KEY (`collier`) REFERENCES `collier` (`refCollier`),
+  ADD CONSTRAINT `animal_ibfk_68` FOREIGN KEY (`refVaccin1`) REFERENCES `vaccin` (`num`),
+  ADD CONSTRAINT `animal_ibfk_69` FOREIGN KEY (`refVaccin2`) REFERENCES `vaccin` (`num`),
+  ADD CONSTRAINT `animal_ibfk_70` FOREIGN KEY (`idTaille`) REFERENCES `taille` (`id`),
+  ADD CONSTRAINT `animal_ibfk_71` FOREIGN KEY (`idOreilles`) REFERENCES `oreilles` (`id`),
+  ADD CONSTRAINT `animal_ibfk_72` FOREIGN KEY (`idPoil`) REFERENCES `poils` (`id`),
+  ADD CONSTRAINT `animal_ibfk_73` FOREIGN KEY (`idTailleQueue`) REFERENCES `queue` (`id`),
+  ADD CONSTRAINT `animal_ibfk_74` FOREIGN KEY (`idTypeEntree`) REFERENCES `typeentree` (`id`),
+  ADD CONSTRAINT `animal_ibfk_75` FOREIGN KEY (`refClient`) REFERENCES `client` (`id`);
+
+--
+-- Contraintes pour la table `client`
+--
+ALTER TABLE `client`
+  ADD CONSTRAINT `client_ibfk_1` FOREIGN KEY (`idEtatClient`) REFERENCES `etatclient` (`id`);
 
 --
 -- Contraintes pour la table `cliententree`
