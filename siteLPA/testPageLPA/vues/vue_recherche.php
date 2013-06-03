@@ -13,6 +13,7 @@ and open the template in the editor.
           <ul>
                 <li><a href="index.php?uc=recherche&action=rechercheClient">LISTE CLIENTS DEJA ENREGISTRES</a></li>
                 <li><a href="index.php?uc=recherche&action=animalParMedaille">RECHERCHE ANIMAL PAR MEDAILLE</a></li>
+                
          </ul>
         </div>
         

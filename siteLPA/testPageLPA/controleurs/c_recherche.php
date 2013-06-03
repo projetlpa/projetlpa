@@ -11,14 +11,14 @@ switch($action){
         //ON RECUPERE TOUS LES CLIENTS PRESENTS ET DEJA ENREGISTRES DANS LA BDD, ILS SERONT ALORS PRESENTS SUR UNE LISTE DEROULANTES.
         
         $lesClients=Client::getClient();
-        include('vues/vue_rechercheClient.php');break;
+        include('vues/recherche/vue_rechercheClient.php');break;
         }
         
     case'animalParMedaille':{
         
         //ON RECUPERE TOUS LES NUMEROS DE MEDAILLES ET ON AFFICHERA LA PAGE DE RECHERCHE ANIMAL PAR MEDAILLE
         $selectMedaille=Animal::getLesMedailles();
-        include('vues/vue_rechercheAnimalParMedaille.php');break;
+        include('vues/recherche/vue_rechercheAnimalParMedaille.php');break;
         
         }
         
@@ -34,8 +34,8 @@ switch($action){
         $lesTailles=  Animal::tailleParMedaille($numMedaille);
         $lesOreilles=  Animal::oreilleParMedaille($numMedaille);
         $lesQueues= Animal::tailleQueueParMedaille($numMedaille);
-        include('vues/vue_rechercheAnimalParMedaille.php');
-        include('vues/vue_resultatRechercheAnimal.php');
+        include('vues/recherche/vue_rechercheAnimalParMedaille.php');
+        include('vues/recherche/vue_resultatRechercheAnimal.php');
         
         break;
         

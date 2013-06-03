@@ -215,6 +215,7 @@ class Animal{
          * @return type
          */
         
+        /// AJOUTER ///
         
         public function ajouterAnimal($idEspece,$idRace,$numMedaille,$sexe,$etat,$dateSterilisation,$idCollier,$numTatouage,$emplacementTatouage,$numPuceElectronique,
 								  $refVaccin1,$dateVaccin1,$rappelVaccin1,$refVaccin2,$dateVaccin2,$rappelVaccin2,$dateNaissance,$ageApproximatif,$moisApproximatif,$nom,$idTaille,
@@ -247,6 +248,31 @@ class Animal{
                 }
                 return $resultat;
         }
+        
+        
+        public static function insererEspece($id,$libelle)
+        {
+        try {
+            $bd=new PDO('mysql:host=localhost;dbname=projetlpa','root','');
+            $requete="INSERT INTO espece VALUES('$id','$libelle')";
+            $nbLignes=$bd->exec($requete);
+                if ($nbLignes===FALSE)
+                    {
+                        $resultat="erreur $requete";
+                    }
+                    else
+                    {
+                        $resultat="ok";
+                    }
+                }
+                    
+                catch(PDOException $e)
+                {
+                    $resultat=$e->getMessage();
+                }
+                return $resultat;
+        }
+        
                   
         
                                                    /// RECUPERER TOUT ANIMAL ///
@@ -282,14 +308,20 @@ class Animal{
             try{
             $bd=new PDO('mysql:host=localhost;dbname=projetlpa','root','');
             $requete = "UPDATE animal SET numMedaille='$numMedaille' WHERE id='$id'";
-            $resultat=$bd->exec($requete);
-            
+            $nbLignes=$bd->exec($requete);
+            if($nbLignes==FALSE){
+                $resultat="erreur $requete";
+            }
+            else{
+                $resultat="le numéro de médaille a été modifié";
+            }
             }
             
             catch(PDOException $e)
             {
-                echo $e;    
-            }          
+                $resultat=$e->getMessage();    
+            }
+            return $resultat;
         }
                                                       
         
@@ -317,6 +349,23 @@ class Animal{
                 echo $e;    
             }            
 	}
+        
+        
+        public static function getMedailles($id)
+        {
+            try{
+            $bd=new PDO('mysql:host=localhost;dbname=projetlpa','root','');
+            $requete = "SELECT numMedaille FROM Animal WHERE id=$id";
+            $resultat=$bd->query($requete);
+            $laMedaille= $resultat->fetchAll();
+            return $laMedaille;
+            }
+            catch(PDOException $e)
+            {
+                echo $e;    
+            }           
+            
+        }
         
         ////////
         

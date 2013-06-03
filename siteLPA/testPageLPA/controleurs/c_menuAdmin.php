@@ -7,7 +7,7 @@ switch($action){
     case 'nouveauClient':{
         //ON SE REDIRIGE VERS LA PAGE DU FORMULAIRE
         $lesEtats=Client::getEtatClient();
-        include('vues/vue_formulaireNouveauClient.php');
+        include('vues/administration/vue_formulaireNouveauClient.php');
         break;
     }
     case 'ajouterUnClient':{
@@ -45,7 +45,7 @@ switch($action){
         $lesVaccins= Animal::getLesVaccins();
         $lesEntrees=  Animal::getLesEntrees();
         $lesClients=  Client::getClient();
-        include ('vues/vue_formulaireNouvelAnimal.php');
+        include ('vues/administration/vue_formulaireNouvelAnimal.php');
         break;
     }
     
@@ -115,7 +115,7 @@ switch($action){
     {
       $lesAnimaux=  Animal::getLesAnimaux();
       
-      include('vues/vue_modifierMedailleAnimal.php');
+      include('vues/administration/vue_modifierMedailleAnimal.php');
       break;
         
     }
@@ -124,9 +124,33 @@ switch($action){
     {
       $id=$_POST['unAnimal'];
       $numMedaille=$_POST['modifierMedaille'];
-      $unResultat=  Animal::modifierMedailleAnimal($id,$numMedaille);
+      $laMedaille=Animal::getMedailles($id);
+      $unResultat=Animal::modifierMedailleAnimal($id,$numMedaille);
+      if($unResultat==TRUE){
+          
+          echo("Resultat obtenu :");
+          
+      }
+      else{
+          echo ("Erreur lors de l'insertion");
+      }
       break;
         
+    }
+    case 'vueEspece':
+    {
+        
+        include('vues/vue_ajoutEspece.php');
+        break;
+    }
+    
+    case'ajouterEspece':
+    {
+        $id=$_POST['id'];
+        $libelle=$_POST['ajoutEspece'];
+        $leResultat=Animal::insererEspece($id,$libelle);
+        include('vues/vue_ajoutEspece.php');
+        break;
     }
     
         
