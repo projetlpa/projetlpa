@@ -174,7 +174,48 @@ class Animal{
             return $this->refClient;
         }
         
-    // FONCTION AJOUTER ANIMAL   
+    // FONCTION AJOUTER ANIMAL  
+        
+        /**
+         * 
+         * @param type $idEspece qui correspond a l'id espece
+         * @param type $idRace qui correspond a l'identifiant associé a la race de l'animal
+         * @param type $numMedaille qui correspond au numéro de médaille
+         * @param type $sexe qui correspond au sexe de l'animal
+         * @param type $etat qui correspond a l'état animal ( stérilisé ou non )
+         * @param type $dateSterilisation qui correspond à sa date de stérilisation
+         * @param type $idCollier qui correspond à l'identifiant associé au collier
+         * @param type $numTatouage qui correspond au numéro de tatouage de l'animal
+         * @param type $emplacementTatouage qui correspond a l'emplacement ou est tatoué l'animal
+         * @param type $numPuceElectronique qui correspond au numéro de puce éléctronique associé a l'animal
+         * @param type $refVaccin1 qui correspond //
+         * @param type $dateVaccin1 qui correspond //
+         * @param type $rappelVaccin1 qui correspond // INFORMATIONS CONCERNANTS LES VACCINS ASSOCIEES A L'ANIMAL
+         * @param type $refVaccin2 qui correspond //
+         * @param type $dateVaccin2 qui correspond //
+         * @param type $rappelVaccin2 qui correspond //
+         * @param type $dateNaissance qui correspond a la date de naissance de l'animal
+         * @param type $ageApproximatif qui correspond a l'age approximatif de l'animal
+         * @param type $moisApproximatif qui correspond au mois approximatif de l'animal 
+         * @param type $nom qui correspond au nom donné a l'animal
+         * @param type $idTaille qui correspond a l'identifiant associé a la taille de l'animal
+         * @param type $idOreille qui correspond a l'identifiant associé au type d'oreilles de l'animal
+         * @param type $idPoil qui correspond à l'identifiant associé au type de poils de l'animal
+         * @param type $idTailleQueue qui correspond à l'identifiant associé a la taille de queue de l'animal
+         * @param type $etatAnimal qui correspond à l'état de l'animal (bon, mauvais ......etc..)
+         * @param type $couleurPrincipale qui correspond à la couleur principale de l'animal
+         * @param type $couleurSecondaire qui correspond à la couleur secondaire de l'animal
+         * @param type $signeParticulier qui correspond au signe particulier que peux posséder l'animal
+         * @param type $motif qui correspond au motif pour lequel l'animal fut apporté
+         * @param type $observation qui correspond aux observations particulières à propos de l'animal
+         * @param type $mordeur qui indique si l'animal est mordeur ou non
+         * @param type $controleSanitaireLpa qui informe si l'animal à fait objet d'un controle sanitaire ou non
+         * @param type $typeEntree qui correspond à l'identifiant associé au type d'entrée de l'animal ( trouvé, abandon...etc.... )
+         * @param type $refClient qui correspond à l'identifiant associé au client.
+         * @return type
+         */
+        
+        
         public function ajouterAnimal($idEspece,$idRace,$numMedaille,$sexe,$etat,$dateSterilisation,$idCollier,$numTatouage,$emplacementTatouage,$numPuceElectronique,
 								  $refVaccin1,$dateVaccin1,$rappelVaccin1,$refVaccin2,$dateVaccin2,$rappelVaccin2,$dateNaissance,$ageApproximatif,$moisApproximatif,$nom,$idTaille,
 								  $idOreille,$idPoil,$idTailleQueue,$etatAnimal,$couleurPrincipale,$couleurSecondaire,$signeParticulier,$motif,$observation,$mordeur,$controleSanitaireLpa,$typeEntree,$refClient)
@@ -206,13 +247,62 @@ class Animal{
                 }
                 return $resultat;
         }
+                  
+        
+                                                   /// RECUPERER TOUT ANIMAL ///
+        /**
+         * 
+         * @return type $lesAnimaux qui retourne un tableau contenant tous les animaux enregistrés 
+         */
+        public static function getLesAnimaux()
+        {
+            try{
+            $bd=new PDO('mysql:host=localhost;dbname=projetlpa','root','');
+            $requete = "select * from animal";
+            $resultat=$bd->query($requete);
+            $lesAnimaux= $resultat->fetchAll();
+            return $lesAnimaux;
+            }
+            catch(PDOException $e)
+            {
+                echo $e;    
+            }           
+            
+        }
+                                                  ///UPDATE MEDAILLE ///
+        
+        
+        /**
+         * 
+         * @param type $id qui correspond a l'identifiant de l'animal
+         * @param type $numMedaille qui correspond au numéro de médaille de l'animal
+         */
+        public static function modifierMedailleAnimal($id,$numMedaille)
+        {
+            try{
+            $bd=new PDO('mysql:host=localhost;dbname=projetlpa','root','');
+            $requete = "UPDATE animal SET numMedaille='$numMedaille' WHERE id='$id'";
+            $resultat=$bd->exec($requete);
+            
+            }
+            
+            catch(PDOException $e)
+            {
+                echo $e;    
+            }          
+        }
+                                                      
+        
         
         
      
     
     
                                                    /// REQUETES LIEES A LA RECUPERATION DE VALEURS ///
-
+        /**
+         * 
+         * @return type $lesTypesEspeces qui retourne un tableau contenant les especes
+         */
 	public static function getLesEspeces()
 	{
             try{
@@ -229,6 +319,11 @@ class Animal{
 	}
         
         ////////
+        
+        /**
+         * 
+         * @return type $lesRaces qui retourne un tableau contenant toutes les races
+         */
         
         public static function getLesRaces()
         {
@@ -248,7 +343,10 @@ class Animal{
         }
         
         ////////
-        
+        /**
+         * 
+         * @return type $lesTailles qui retourne un tableau contenant les tailles.
+         */
         public static function getLesTailles()
         {
             try
@@ -267,7 +365,10 @@ class Animal{
         }
         
         ////////
-        
+        /**
+         * 
+         * @return type qui retourne un tableau contenant les oreilles
+         */
         public static function getLesOreilles()
         {
             try
@@ -286,7 +387,10 @@ class Animal{
         }
         
         ////////
-        
+        /**
+         * 
+         * @return type qui retourne un tableau contenant tous les poils
+         */
         public static function getLesPoils()
         {
             try
@@ -305,7 +409,10 @@ class Animal{
         }
         
         ////////
-        
+        /**
+         * 
+         * @return type qui retourne un tableau contenant toutes les queues
+         */
         public static function getLesQueues()
         {
             try
@@ -324,7 +431,10 @@ class Animal{
         }
         
         ////////
-        
+        /**
+         * 
+         * @return type $lesEtats qui retourne un tableau contenant tous les etats
+         */
         public static function getLesEtats()
         {
             try
@@ -343,6 +453,10 @@ class Animal{
         }
         
         ////////
+        /**
+         * 
+         * @return type $lesColliers qui retourne un tableau contenant tous les colliers
+         */
         
         public static function getLesColliers()
         {
@@ -362,6 +476,10 @@ class Animal{
         }
         
         ////////
+        /**
+         * 
+         * @return type $lesVaccins qui retourne un tableau contenant touts les vaccins
+         */
         
         public static function getLesVaccins()
         {
@@ -381,7 +499,11 @@ class Animal{
         }
         
         ////////
-        
+         
+        /**
+         * 
+         * @return type $lesEntrees qui retourne un tableau contenant toutes les entrées
+         */
         
         public static function getLesEntrees()
         {
@@ -403,6 +525,10 @@ class Animal{
         
         
         ////////
+        /**
+         * 
+         * @return type $lesMedailles qui retourne un tableau contenant toutes les médailles
+         */
         
         public static function getLesMedailles()
         {
@@ -433,6 +559,11 @@ class Animal{
         
         
         ////////
+        /**
+         * 
+         * @param type $numMedaille qui correspond au numéro de médaille
+         * @return type $lesAnimaux qui retourne un tableau contenant tous les animaux selectionnés selon le numéro de médaille séléctionné
+         */
         
         public static function animalParMedaille($numMedaille)
         {
@@ -450,6 +581,12 @@ class Animal{
             
         }
         ////////
+        /**
+         * 
+         * @param type $numMedaille qui correspond au numéro de médaille
+         * @return type $lesRacesParMedaille qui retourne un tableau contenant toutes les races selon le numéro de médaille séléctionné
+         */
+        
         public static function raceParMedaille($numMedaille)
         {
             try{
@@ -469,6 +606,11 @@ class Animal{
         }
         ////////
         
+        /**
+         * 
+         * @param type $numMedaille qui correspond au numéro de médaille
+         * @return type $lesVaccins1 qui retourne un tableau contenant tous les vaccins selon le numéro séléctionné
+         */
         
         public static function vaccin1ParMedaille($numMedaille)
         {
@@ -487,7 +629,11 @@ class Animal{
         }
         
         ////////
-            
+        /**
+         * 
+         * @param type $numMedaille qui correspond au numéro de médaille
+         * @return type $lesVaccins2 qui retourne un tableau contenant tous les vaccins selon le numéro séléctionné
+         */
         public static function vaccin2ParMedaille($numMedaille)
         {
             try{
@@ -505,6 +651,13 @@ class Animal{
             
         }
         ////////
+        
+        /**
+         * 
+         * @param type $numMedaille qui correspond au numéro de médaille
+         * @return type $lesTailles qui retourne un tableau contenant toutes les tailles selon le numéro séléctionné
+         */
+        
         public static function tailleParMedaille($numMedaille)
         {
             try{
@@ -523,6 +676,12 @@ class Animal{
             
         }
         ////////    
+        
+        /**
+         * 
+         * @param type $numMedaille qui correspond au numéro de médaille
+         * @return type $lesOreilles qui retourne un tableau contenant toutes les oreilles selon le numéro séléctionné
+         */
         
         public static function oreilleParMedaille($numMedaille)
         {
@@ -543,6 +702,12 @@ class Animal{
         
         ////////
         
+        /**
+         * 
+         * @param type $numMedaille qui correspond au numéro de médaille
+         * @return type $lesPoils qui retourne un tableau contenant tous les types de poils selon le numéro de médaille séléctionné
+         */
+        
         public static function poilsParMedaille($numMedaille)
         {
             
@@ -561,6 +726,12 @@ class Animal{
         }
         
         ////////
+        
+        /**
+         * 
+         * @param type $numMedaille qui correspond au numéro de médaille
+         * @return type $lesQueues qui retourne un tableau contenant toutes les tailles de queues selon le numéro de médaille séléctionné.
+         */
         
         public static function tailleQueueParMedaille($numMedaille)
         {

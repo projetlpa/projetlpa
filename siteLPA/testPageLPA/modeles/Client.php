@@ -48,6 +48,19 @@ class Client{
     }
     // FONCTION AJOUTER CLIENT
     
+    /**
+     * 
+     * @param type $nom qui correspond au nom du client
+     * @param type $prenom qui correspond au prénom du client
+     * @param type $adresse qui correspond a l'adresse du client
+     * @param type $CP qui correspond au code postal
+     * @param type $ville qui correspond a la ville
+     * @param type $telephone1 qui correspond au numéro de téléphone fixe
+     * @param type $telephone2 qui correspond au numéro de téléphone portable ( si il y'a et inversement =
+     * @param type $idEtatClient correspond a l'identifiant associé a l'état du client ( entrée ou sortie )
+     * @return type $resultat qui retourne bon si la requete a correctement été executée et une erreur dans l'autre cas
+     */
+    
     public static function ajoutClient($nom,$prenom,$adresse,$CP,$ville,$telephone1,$telephone2,$idEtatClient)
     {      
         try
@@ -71,6 +84,14 @@ class Client{
         return $resultat;
     }
     
+    
+                                         ///////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * 
+     * @return type $lesEtats 
+     */
+    
     public static function getEtatClient()
     {
      try
@@ -93,7 +114,7 @@ class Client{
         
        try{
             $bd=new PDO('mysql:host=localhost;dbname=projetlpa','root','');
-            $requete="SELECT * from client";
+            $requete="SELECT * from client ORDER BY nom ASC";
             $resultat=$bd->query($requete);
             $lesClients=$resultat->fetchAll();
             return $lesClients;

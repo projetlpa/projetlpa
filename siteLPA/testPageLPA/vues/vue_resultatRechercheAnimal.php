@@ -1,5 +1,7 @@
 <?php
 
+//ON RECUPERE TOUTES LES DONNEES EN FONCTION DE LA MEDAILLE INSEREE
+
 foreach($uneMedaille as $lesMedailles){
     
      echo "Nom de l'animal : ".'  '.$lesMedailles['nom'];
@@ -46,6 +48,9 @@ foreach($uneMedaille as $lesMedailles){
     {
         echo "<br> Taille Queue ".' '.$uneQueue['libelle'];
     }
+    
+    
+
     
     
    

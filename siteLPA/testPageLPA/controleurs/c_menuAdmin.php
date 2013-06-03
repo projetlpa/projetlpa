@@ -5,11 +5,13 @@ include('vues/vue_menuAdmin.php');
 $action=$_REQUEST['action'];
 switch($action){  
     case 'nouveauClient':{
+        //ON SE REDIRIGE VERS LA PAGE DU FORMULAIRE
         $lesEtats=Client::getEtatClient();
         include('vues/vue_formulaireNouveauClient.php');
         break;
     }
     case 'ajouterUnClient':{
+        //ON RECUPERE TOUTES LES DONNES ENTREES DEPUIS LE FORMULARIE DE L'AJOUT CLIENT POUR L'INSERER DANS LA BDD
         $nom=$_POST['nom'];
         $prenom=$_POST['prenom'];
         $adresse=$_POST['adresse'];
@@ -31,7 +33,7 @@ switch($action){
         break;
     }
     case 'nouvelAnimal':{
-        
+        //ON RECUPERE TOUTES LES VALEURS ASSOCIES A L'ANIMAL DEPUIS LA BDD AFIN DE LES FAIRE APPARAITRE SUR LE FORMULAIRE DANS DES LISTES DEROULANTES
         $lesTypesEspeces=  Animal::getLesEspeces();
         $lesRaces= Animal::getLesRaces();
         $lesTailles=  Animal::getLesTailles();
@@ -48,7 +50,7 @@ switch($action){
     }
     
     case 'ajouterAnimal':{
-        
+        // ON RECUPERE TOUTES LES DONNEES ENTREES DEPUIS LE FORMULAIRE POUR AJOUTER L'ANIMAL AFIN DE LES INSERER DANS LA BDD
         $nom=$_POST['nom'];
         $idEspece=$_POST['espece'];
         $idRace=$_POST['race'];
@@ -108,7 +110,25 @@ switch($action){
         include('vues/vue_recherche.php');
         break;
         
-     }   
+     }
+    case 'vueModifierNumeroMedailleAnimal':
+    {
+      $lesAnimaux=  Animal::getLesAnimaux();
+      
+      include('vues/vue_modifierMedailleAnimal.php');
+      break;
+        
+    }
+    
+    case 'modifierLaMedaille':
+    {
+      $id=$_POST['unAnimal'];
+      $numMedaille=$_POST['modifierMedaille'];
+      $unResultat=  Animal::modifierMedailleAnimal($id,$numMedaille);
+      break;
+        
+    }
+    
         
         
         

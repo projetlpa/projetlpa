@@ -8,18 +8,24 @@ switch($action){
     
     case'rechercheClient':{
         
+        //ON RECUPERE TOUS LES CLIENTS PRESENTS ET DEJA ENREGISTRES DANS LA BDD, ILS SERONT ALORS PRESENTS SUR UNE LISTE DEROULANTES.
         
         $lesClients=Client::getClient();
         include('vues/vue_rechercheClient.php');break;
         }
         
     case'animalParMedaille':{
+        
+        //ON RECUPERE TOUS LES NUMEROS DE MEDAILLES ET ON AFFICHERA LA PAGE DE RECHERCHE ANIMAL PAR MEDAILLE
         $selectMedaille=Animal::getLesMedailles();
         include('vues/vue_rechercheAnimalParMedaille.php');break;
         
         }
         
     case'rechercheParMedaille':{
+        
+        //ON RECUPERE LE NUMERO DE MEDAILLE INSERE PUIS ON AFFICHE TOUTES LES INFORMATIONS DE L'ANIMAL SELON LE NUMERO INSERE
+        
         $numMedaille=$_POST['rechercheParMedaille'];
         $uneMedaille=Animal::animalParMedaille($numMedaille);
         $uneRace=Animal::raceParMedaille($numMedaille);
