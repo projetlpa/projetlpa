@@ -12,6 +12,7 @@ class Client{
     private $telephone1;
     private $telephone2;
     private $idEtatClient;
+    private $delinquant;
     
     function getId(){
         
@@ -46,6 +47,10 @@ class Client{
     {
         return $this->idEtatClient;
     }
+    function getDelinquant()
+    {
+        return $this->delinquant;
+    }
     // FONCTION AJOUTER CLIENT
     
     /**
@@ -61,12 +66,12 @@ class Client{
      * @return type $resultat qui retourne bon si la requete a correctement été executée et une erreur dans l'autre cas
      */
     
-    public static function ajoutClient($nom,$prenom,$adresse,$CP,$ville,$telephone1,$telephone2,$idEtatClient)
+    public static function ajoutClient($nom,$prenom,$adresse,$CP,$ville,$telephone1,$telephone2,$idEtatClient,$delinquant)
     {      
         try
         {
             $bd=new PDO('mysql:host=localhost;dbname=projetlpa','root','');
-            $requete="INSERT INTO client VALUES('','$nom','$prenom','$adresse','$CP','$ville','$telephone1','$telephone2','$idEtatClient')";
+            $requete="INSERT INTO client VALUES('','$nom','$prenom','$adresse','$CP','$ville','$telephone1','$telephone2','$idEtatClient','$delinquant')";
             $nbLignes=$bd->exec($requete);
             if ($nbLignes===FALSE)
             {
@@ -109,12 +114,41 @@ class Client{
         }
     }
     
-    public static function getClient()
+    /**
+     * 
+     * @return type $lesClients qui retourne un tableau contenant tous les Clients déja présents
+     */
+    
+     public static function getClient()
     {
         
        try{
             $bd=new PDO('mysql:host=localhost;dbname=projetlpa','root','');
-            $requete="SELECT * from client ORDER BY nom ASC";
+            $requete="SELECT * FROM client ORDER BY nom ASC";
+            $resultat=$bd->query($requete);
+            $lesClients=$resultat->fetchAll();
+            return $lesClients;
+        }
+        catch (PDOException $e )
+        {
+            echo $e;    
+                  
+        }
+        
+        
+    }
+    
+    /**
+     * 
+     * @return type $lesClients qui retourne un tableau contenant tous les Clients Entree déjà présents.
+     */
+    
+    public static function getClientEntree()
+    {
+        
+       try{
+            $bd=new PDO('mysql:host=localhost;dbname=projetlpa','root','');
+            $requete="SELECT * FROM client WHERE idEtatClient=1 ORDER BY nom ASC";
             $resultat=$bd->query($requete);
             $lesClients=$resultat->fetchAll();
             return $lesClients;

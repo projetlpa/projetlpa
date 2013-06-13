@@ -14,6 +14,7 @@
             <li><a href="index.php?uc=admin&action=vueMenuAdmin">ADMINISTRATION</a></li>
             <li><a href="index.php?uc=eco&action=vueMenuEco">ECONOMIQUE</a></li>
             <li><a href="index.php?uc=recherche&action=recherche">RECHERCHE</a></li>
+            <li><a href="index.php?uc=enquete&action=vueEnquete">ENQUETE/CONTROLE</a>
         </ul>
     </div>
     

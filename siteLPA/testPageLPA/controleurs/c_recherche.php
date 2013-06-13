@@ -34,6 +34,7 @@ switch($action){
         $lesTailles=  Animal::tailleParMedaille($numMedaille);
         $lesOreilles=  Animal::oreilleParMedaille($numMedaille);
         $lesQueues= Animal::tailleQueueParMedaille($numMedaille);
+        $selectMedaille=Animal::getLesMedailles();
         include('vues/recherche/vue_rechercheAnimalParMedaille.php');
         include('vues/recherche/vue_resultatRechercheAnimal.php');
         

@@ -1,4 +1,6 @@
 <br><br>
+<h2>MODIFIER LA MEDAILLE D'UN ANIMAL</h2>
+    
 <form method='POST' action='index.php?uc=admin&action=modifierLaMedaille'>
     
     <select id="unAnimal" name="unAnimal">

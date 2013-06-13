@@ -7,7 +7,7 @@
 	<?php	
 		foreach($lesClients as $unClient)
 		{
-			echo '<option value ="'.$unClient['id'].'">'.$unClient['nom'].'</option>';
+			echo '<option value ="'.$unClient['id'].'">'.$unClient['nom'].'     '.$unClient['prenom'].'     '.$unClient['adresse'].'     '.$unClient['ville'].'</option>';
 			//echo '<option value ="$uneEspece">toto</option>';
 		}
 	?>

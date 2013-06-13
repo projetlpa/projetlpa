@@ -248,13 +248,18 @@ class Animal{
                 }
                 return $resultat;
         }
+        /**
+         * 
+         * @param type $libelle qui correspond au libelle
+         * @return type $resultat qui indique "erreur" si la requete a echoué sinon "ok"
+         */
         
         
-        public static function insererEspece($id,$libelle)
+        public static function insererEspece($libelle)
         {
         try {
             $bd=new PDO('mysql:host=localhost;dbname=projetlpa','root','');
-            $requete="INSERT INTO espece VALUES('$id','$libelle')";
+            $requete="INSERT INTO espece VALUES('','$libelle')";
             $nbLignes=$bd->exec($requete);
                 if ($nbLignes===FALSE)
                     {
@@ -350,7 +355,11 @@ class Animal{
             }            
 	}
         
-        
+        /**
+         * 
+         * @param type $id qui correspond a l'identifiant de l'animal
+         * @return type $laMedaille qui retourne un tableau de tous les numéros de médaille suivant l'id indiqué
+         */        
         public static function getMedailles($id)
         {
             try{

@@ -1,4 +1,5 @@
 <br><br>
+<h2>AJOUT ESPECE</h2>
 <form method="POST" action="index.php?uc=admin&action=ajouterEspece">
     
       

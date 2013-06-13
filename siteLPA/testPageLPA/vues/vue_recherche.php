@@ -9,6 +9,7 @@ and open the template in the editor.
         <title>RECHERCHE</title>
     </head>
     <body>
+        <h1> Menu Recherche </h1>
         <div class="barre">
           <ul>
                 <li><a href="index.php?uc=recherche&action=rechercheClient">LISTE CLIENTS DEJA ENREGISTRES</a></li>

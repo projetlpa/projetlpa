@@ -20,7 +20,8 @@ switch($action){
         $telephone1=$_POST['telephone1'];
         $telephone2=$_POST['telephone2'];
         $idEtatClient=$_POST['etatClient'];
-        $resultat=Client::ajoutClient($nom, $prenom, $adresse, $CP, $ville, $telephone1, $telephone2,$idEtatClient);
+        $delinquant=$_POST['delinquant'];
+        $resultat=Client::ajoutClient($nom, $prenom, $adresse, $CP, $ville, $telephone1, $telephone2,$idEtatClient,$delinquant);
         if ($resultat==TRUE)
         {
             echo ("Tout est inséré");            
@@ -44,7 +45,7 @@ switch($action){
         $lesColliers=  Animal::getLesColliers();
         $lesVaccins= Animal::getLesVaccins();
         $lesEntrees=  Animal::getLesEntrees();
-        $lesClients=  Client::getClient();
+        $lesClients=  Client::getClientEntree();
         include ('vues/administration/vue_formulaireNouvelAnimal.php');
         break;
     }
@@ -120,6 +121,32 @@ switch($action){
         
     }
     
+    case 'nouvelleSortie':{
+        $selectMedaille=Animal::getLesMedailles();
+        include('vues/administration/vue_formulaireSortieAnimal.php');
+        break;
+        
+    }
+    case 'enregistrerSortie':
+    {
+        $numMedaille=$_POST['numMedaille'];
+        $uneRace=Animal::raceParMedaille($numMedaille);
+        $lesVaccins1=  Animal::vaccin1ParMedaille($numMedaille);
+        $lesVaccins2= Animal::vaccin2ParMedaille($numMedaille);
+        $lesTailles=  Animal::tailleParMedaille($numMedaille);
+        $lesOreilles=  Animal::oreilleParMedaille($numMedaille);
+        $lesQueues= Animal::tailleQueueParMedaille($numMedaille);
+        $animalMedaille=Animal::animalParMedaille($numMedaille);
+        $selectMedaille=Animal::getLesMedailles();
+        include('vues/administration/vue_formulaireSortieAnimal.php');
+        $uneMedaille=Animal::animalParMedaille($numMedaille);
+        $lesAnimaux=Animal::getLesAnimaux();
+        include('vues/administration/vue_resultatEtFormulaireClient.php');
+        break;
+        
+    }
+    
+    
     case 'modifierLaMedaille':
     {
       $id=$_POST['unAnimal'];
@@ -137,18 +164,19 @@ switch($action){
       break;
         
     }
-    case 'vueEspece':
-    {
+    case 'vueEspece':{
+    
         
         include('vues/vue_ajoutEspece.php');
         break;
     }
+    
     
     case'ajouterEspece':
     {
-        $id=$_POST['id'];
+        
         $libelle=$_POST['ajoutEspece'];
-        $leResultat=Animal::insererEspece($id,$libelle);
+        $leResultat=Animal::insererEspece($libelle);
         include('vues/vue_ajoutEspece.php');
         break;
     }
@@ -156,6 +184,6 @@ switch($action){
         
         
         
-    
+      
 }
 ?>

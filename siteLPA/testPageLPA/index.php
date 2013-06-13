@@ -23,6 +23,10 @@ switch($uc){
         include("controleurs/c_recherche.php");
         break;
     }
+    case 'enquete':{
+        include("controleurs/c_enquete.php");
+        break;
+    }
 }
     
 include("vues/vue_piedDePage.php");

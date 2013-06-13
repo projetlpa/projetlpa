@@ -34,10 +34,19 @@
 	?>
     </select>
     
-         
-    
-    
+    <br><br>
+    <label for="delinquant">Précisez si il s'agit d'un client supposé délinquant ou non</label>
+    <select name="delinquant">
+        <option value="oui">Oui</option>
+        <option value="non">Non</option>
+    </select>    
+    <br><br>   
     
     <input type="submit" value="Enregistrer" class="button" />
+         
+</form>    
+    
+    
+    
    
-</form>  
+  

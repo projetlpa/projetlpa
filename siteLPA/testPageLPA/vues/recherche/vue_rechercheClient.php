@@ -1,4 +1,5 @@
 <br><br>
+<h2>RECHERCHE CLIENT</h2>
 <form name="listeClient">
     
     <select name="leClient">

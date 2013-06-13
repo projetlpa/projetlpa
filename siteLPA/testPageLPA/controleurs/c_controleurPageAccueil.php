@@ -7,7 +7,7 @@ $action=$_REQUEST['action'];
 
 switch($action){    
     case 'vuePageAccueil':{
-        include("vues/vue_accueil.php");
+        include("vues/vue_accueil.php"); //On considere que si l'action séléctionnée est "vuePageAccueil" on affichera la vue accueil
         break;
     }
 }
